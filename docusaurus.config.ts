@@ -4,7 +4,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
   title: "DISC Documentation",
-  tagline: "Documentation for DISC Projects",
+  tagline: "New Trier Food Pantry Inventory System Documentation",
   favicon: "img/favicon.ico",
 
   url: "https://docs.discnu.org",
@@ -32,8 +32,8 @@ const config: Config = {
       "classic",
       {
         docs: {
-          id: "workshop-series",
-          path: "docs/workshop-series",
+          id: "food-pantry",
+          path: "docs",
           routeBasePath: "/",
 
           sidebarPath: require.resolve("./sidebars.workshop-series.ts"),
@@ -49,28 +49,7 @@ const config: Config = {
     ],
   ],
 
-  plugins: [
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "disc-website",
-        path: "docs/disc-website",
-        routeBasePath: "disc-website",
-        sidebarPath: require.resolve("./sidebars.disc-website.ts"),
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "discover-program-template-project",
-        path: "docs/discover-program-template-project",
-        routeBasePath: "discover-program-template-project",
-        sidebarPath: require.resolve(
-          "./sidebars.discover-program-template-project.ts"
-        ),
-      },
-    ],
-  ],
+  plugins: [],
 
   themeConfig: {
     image: "img/docusaurus-social-card.jpg",
@@ -91,22 +70,8 @@ const config: Config = {
           type: "doc",
           docId: "intro",
           position: "left",
-          label: "Workshop Series",
-          docsPluginId: "workshop-series",
-        },
-        {
-          type: "doc",
-          docId: "intro",
-          position: "left",
-          label: "DISC Website",
-          docsPluginId: "disc-website",
-        },
-        {
-          type: "doc",
-          docId: "intro",
-          position: "left",
-          label: "Discover Program",
-          docsPluginId: "discover-program-template-project",
+          label: "Food Pantry",
+          docsPluginId: "food-pantry",
         },
         {
           href: "https://github.com/DISC-NU/DISC-Documentation-Website",
@@ -122,16 +87,8 @@ const config: Config = {
           title: "Documentation",
           items: [
             {
-              label: "Workshop Series",
+              label: "Food Pantry",
               to: "/",
-            },
-            {
-              label: "DISC Website",
-              href: "/disc-website/intro",
-            },
-            {
-              label: "Discover Program Template",
-              to: "/discover-program-template-project/intro",
             },
           ],
         },

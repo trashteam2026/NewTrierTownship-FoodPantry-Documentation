@@ -29,21 +29,35 @@ The progress we've made will be detailed in the **handoff documentation**
 
 ## Tech Stack
 
-- **Frontend Template**: 
-- **Backend Template**:
-
-Our template uses a modern TypeScript stack:
+The inventory system itself is split into a JavaScript frontend and backend. The documentation site is a separate Docusaurus project.
 
 ### Frontend
 
-- 
+- React
+- Vite
+- styled-components
+- Firebase client authentication
+- ZXing browser barcode scanner
+- `react-icons`
 
 ### Backend
 
-- 
+- Node.js
+- Express
+- PostgreSQL through Supabase
+- Firebase Admin SDK
+- `pg`
+- external barcode lookup providers
 
 ### Development Tools
 
 - Git for version control
 - VS Code as the recommended editor
-- ESLint + Prettier for consistent code formatting
+- ESLint and Prettier for consistent code formatting
+
+## Current Documentation Sections
+
+- **Getting Started**: local setup and environment expectations
+- **Authentication**: Firebase auth flow and route protection notes
+- **Frontend**: React project structure and user-facing features
+- **Backend**: Express/database structure and backend behavior

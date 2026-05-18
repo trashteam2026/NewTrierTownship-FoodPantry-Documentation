@@ -9,23 +9,45 @@ const workshopSidebar: SidebarsConfig = {
     },
     {
       type: "doc",
-      id: "installation",
-      label: "Installation",
+      id: "getting-started",
+      label: "Getting Started",
     },
     {
       type: "doc",
-      id: "quick-start",
-      label: "Quick Start",
+      id: "authentication",
+      label: "Authentication",
     },
     {
-      type: "doc",
-      id: "project-structure",
-      label: "Project Structure",
+      type: "category",
+      label: "Frontend",
+      items: [
+        {
+          type: "doc",
+          id: "frontend/project-structure",
+          label: "Project Structure",
+        },
+        {
+          type: "doc",
+          id: "frontend/features",
+          label: "Features",
+        },
+      ],
     },
     {
-      type: "doc",
-      id: "contributing",
-      label: "Contributing",
+      type: "category",
+      label: "Backend",
+      items: [
+        {
+          type: "doc",
+          id: "backend/project-structure",
+          label: "Project Structure",
+        },
+        {
+          type: "doc",
+          id: "backend/features",
+          label: "Features",
+        },
+      ],
     },
   ],
 };
