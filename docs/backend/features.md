@@ -165,8 +165,7 @@ src/repositories/barcodeRepository.js
 
 Lookup order:
 
-1. local inventory barcode match
-2. custom barcode mapping
+1. Database barcode match
 3. Open Food Facts
 4. UPCItemDB fallback
 
