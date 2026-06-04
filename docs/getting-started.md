@@ -85,11 +85,25 @@ cd js-frontend
 npm run build
 ```
 
+Frontend tests:
+
+```bash
+cd js-frontend
+npm run test
+```
+
 Backend lint:
 
 ```bash
 cd js-backend
 npm run lint
+```
+
+Documentation site production build:
+
+```bash
+cd Food-Documentation-Website
+npm run build
 ```
 
 Documentation site local server:

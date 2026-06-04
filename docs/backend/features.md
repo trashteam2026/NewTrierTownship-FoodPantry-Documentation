@@ -154,6 +154,15 @@ The activity endpoint supports optional date filtering:
 GET /activity?start=YYYY-MM-DD&end=YYYY-MM-DD
 ```
 
+Volunteer-created `added` entries can be edited or deleted through authenticated endpoints:
+
+```text
+PATCH /activity/:id
+DELETE /activity/:id
+```
+
+Those endpoints require the current Firebase UID to match the log entry's `volunteer_uid`. They also require a `batch_id`, because the backend adjusts the linked batch quantity as part of the same transaction.
+
 ## Barcode Lookup
 
 Barcode lookup happens in:
@@ -172,6 +181,14 @@ Lookup order:
 
 The local database match should always win, because pantry-specific names/categories are more trustworthy than third-party product labels.
 
+Administrators can also generate internal barcodes with:
+
+```text
+POST /api/barcode/generate
+```
+
+That route requires Firebase auth and owner access.
+
 ## Check-In Flow
 
 Volunteer check-ins use:
@@ -188,6 +205,53 @@ The backend:
 - attaches a barcode when provided
 - inserts or increments the matching batch
 - writes activity for added stock
+
+Anonymous volunteers and unauthenticated requests must have an active volunteer session. Authenticated owners can check in without an active volunteer session.
+
+When a volunteer is signed in anonymously, successful check-ins can include volunteer metadata in the activity log:
+
+- `volunteer_name`
+- `volunteer_uid`
+- `batch_id`
+
+## Check-Out Flow
+
+Administrator check-outs use:
+
+```text
+POST /api/inventory/check-out
+```
+
+That route requires Firebase auth and owner access.
+
+The backend accepts either a registered barcode or an item id plus a quantity. It removes stock from the oldest expiring batches first, deletes empty batch rows, and writes a `removed` activity entry.
+
+Known response cases include:
+
+- `BARCODE_NOT_FOUND` when no item is registered for the scanned barcode
+- `INSUFFICIENT_STOCK` when the requested quantity is greater than available stock
+
+## Volunteer Sessions
+
+Volunteer sessions are handled in:
+
+```text
+src/controllers/volunteerController.js
+src/routes/volunteerRoutes.js
+```
+
+Current endpoints:
+
+- `GET /api/volunteer/session`: owner-only current session lookup
+- `POST /api/volunteer/session`: owner-only session generation
+- `DELETE /api/volunteer/session`: owner-only session ending
+- `POST /api/volunteer/verify`: public code verification
+- `POST /api/volunteer/register`: authenticated volunteer registration
+- `GET /api/volunteer/me`: authenticated volunteer profile lookup
+- `GET /api/volunteer/volunteers`: owner-only active volunteer list
+- `GET /api/volunteer/stats`: owner-only volunteer stats from `activity_log`
+
+Session state is currently stored in process memory. A server restart clears active sessions and active volunteer registrations.
 
 ## Maintenance Notes
 

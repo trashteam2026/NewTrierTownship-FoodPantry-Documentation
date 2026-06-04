@@ -63,8 +63,14 @@ Important pages:
 - `/` landing page
 - `/login`
 - `/signup`
+- `/forgot-password`
+- `/auth/callback`
+- `/auth/reset-password`
 - `/inventory`
+- `/barcode-generator`
 - `/activity`
+- `/scan-out`
+- `/volunteers`
 - `/scan-in`
 - `/volunteer/entry`
 
@@ -88,6 +94,9 @@ It wraps `fetch` and exports:
 - `batchesApi`
 - `categoriesApi`
 - `activityApi`
+- `checkoutApi`
+- `barcodeApi`
+- `volunteerApi`
 
 Volunteer check-in uses a separate helper:
 
@@ -157,6 +166,48 @@ Important files:
 
 The scanner uses `@zxing/browser`.
 
+## Scan-Out Page
+
+Administrator checkout code lives in:
+
+```text
+src/pages/scan-out/
+```
+
+Important files:
+
+- `ScanOutPage.jsx`: barcode scanner, checkout cart, and checkout submission workflow
+- `CartLine.jsx`: cart line editing, item selection for unknown barcodes, and line-level errors
+
+Checkout requests use `checkoutApi.checkOut`, which sends authenticated requests to:
+
+```text
+POST /api/inventory/check-out
+```
+
+## Barcode Generator Page
+
+Internal barcode generation code lives in:
+
+```text
+src/pages/barcode/BarcodeGeneratorPage.jsx
+src/utils/barcodePrint.js
+```
+
+The page calls `barcodeApi.generate`, then renders and prints generated barcodes with the shared barcode print utility.
+
+## Volunteers Page
+
+Volunteer management code lives in:
+
+```text
+src/pages/volunteers/VolunteersPage.jsx
+src/pages/inventory/VolunteerCodeModal.jsx
+src/pages/volunteer/VolunteerEntryPage.jsx
+```
+
+Administrators can generate or end an active volunteer session code. Volunteers enter the code from `/volunteer/entry`, register their name after anonymous Firebase sign-in, and then use `/scan-in`.
+
 ## Activity Page
 
 Activity log code lives in:
@@ -171,3 +222,5 @@ Important files:
 - `DateRangePicker.jsx`
 
 The page reads from `activityApi.getLogs`.
+
+Volunteer-created activity entries can also call `activityApi.updateLog` and `activityApi.deleteLog` from the scan-in workflow when the backend authorizes the current Firebase UID for that log entry.

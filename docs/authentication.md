@@ -41,7 +41,24 @@ Important route guards:
 
 - `PublicOnlyRoute`: redirects logged-in owners to inventory and volunteers to scan-in
 - `OwnerOnlyRoute`: protects administrator pages
-- `MobileOnlyRoute`: sends non-mobile users away from volunteer entry
+- `VolunteerOnlyRoute`: protects the scan-in page for anonymous volunteer users
+- `MobileOnlyRoute`: still exists, but it is not currently used by the routes in `App.jsx`
+
+Current owner-only frontend routes:
+
+- `/inventory`
+- `/barcode-generator`
+- `/activity`
+- `/scan-out`
+- `/volunteers`
+
+Current volunteer-only route:
+
+- `/scan-in`
+
+The public volunteer entry route is:
+
+- `/volunteer/entry`
 
 ## Backend Auth
 
@@ -66,7 +83,26 @@ js-backend/src/controllers/authController.js
 
 ## Current Caveats
 
-Some inventory and volunteer endpoints are not fully protected yet. The application has historically used frontend route protection for administrator access. Before production deployment, review every backend route and decide which endpoints must require Firebase auth.
+Some inventory and category endpoints are not fully protected yet. The application has historically used frontend route protection for administrator access. Before production deployment, review every backend route and decide which endpoints must require Firebase auth.
+
+Owner-only backend routes currently include:
+
+- `POST /api/barcode/generate`
+- `POST /api/inventory/check-out`
+- `GET /api/volunteer/session`
+- `POST /api/volunteer/session`
+- `DELETE /api/volunteer/session`
+- `GET /api/volunteer/volunteers`
+- `GET /api/volunteer/stats`
+
+Volunteer profile routes require a Firebase token, including anonymous volunteer users:
+
+- `POST /api/volunteer/register`
+- `GET /api/volunteer/me`
+
+The volunteer code verification endpoint is public:
+
+- `POST /api/volunteer/verify`
 
 Known production-readiness tasks:
 

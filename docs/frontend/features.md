@@ -27,6 +27,10 @@ Current functionality:
 - delete categories
 - add items inside a category
 - open item detail popup
+- open the barcode generator
+- open the scan-out checkout page
+- open volunteer management
+- start or end a volunteer session code
 
 ## Item Detail Popup
 
@@ -42,6 +46,8 @@ It currently supports:
 - editing item name
 - editing item category
 - editing low-stock threshold
+- viewing item barcodes
+- printing item barcodes
 - viewing quantities by expiration month/year
 - editing batch quantities by double-clicking grid cells
 - adding no-expiration batches
@@ -79,9 +85,25 @@ DELETE /categories/:id
 
 The backend is responsible for deleting the category's items and writing activity log entries for removed stock.
 
+## Volunteer Sessions
+
+Administrators can open the volunteer session modal from the owner pages. The modal uses `volunteerApi` to:
+
+- get the current session
+- generate a new session code
+- end the current session
+
+Volunteers enter a session code on:
+
+```text
+/volunteer/entry
+```
+
+After code verification and anonymous Firebase sign-in, the volunteer registers their name and is sent to scan-in.
+
 ## Volunteer Scan-In
 
-The scan-in page is intended for volunteers on mobile devices.
+The scan-in page is intended for volunteers and is protected by `VolunteerOnlyRoute`.
 
 Current behavior:
 
@@ -91,8 +113,36 @@ Current behavior:
 - falls back to external barcode lookup providers
 - lets volunteers enter item/category/expiration/quantity
 - sends check-ins to the backend
+- shows the active volunteer name from the volunteer profile endpoint
+- lets the volunteer update or delete their own recent check-in activity when the backend authorizes it
 
 Known detail: if a scanned barcode already belongs to an existing item, the form locks the item name/category so volunteers do not accidentally rename existing inventory.
+
+## Scan-Out Checkout
+
+The scan-out page is an owner-only checkout workflow.
+
+Current behavior:
+
+- scans or enters barcodes
+- builds a checkout cart
+- supports quantity edits before submitting
+- lets administrators choose an item when a scanned barcode is not registered
+- submits checkout requests to the backend
+- displays line-level errors for unknown barcodes or insufficient stock
+
+The backend handles the actual stock removal.
+
+## Barcode Generator
+
+The barcode generator page is owner-only.
+
+Current behavior:
+
+- accepts an item name and category
+- requests a generated internal barcode from the backend
+- previews the generated barcode
+- prints generated barcode labels
 
 ## Activity Log
 
@@ -101,7 +151,10 @@ The activity log page displays backend activity records.
 Currently tracked events include:
 
 - inventory check-ins
+- inventory check-outs
 - category deletion removals when items with quantity are deleted
+
+The activity API supports date filtering, and volunteer-created check-in entries can be edited or deleted by the same volunteer UID when the backend can safely adjust the associated batch.
 
 Future maintainers should make sure every destructive inventory operation has a clear activity log story.
 

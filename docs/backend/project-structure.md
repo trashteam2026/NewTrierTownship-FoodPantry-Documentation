@@ -69,6 +69,7 @@ Important routes currently mounted:
 /activity
 /api/barcode
 /api/inventory
+/api/volunteer
 ```
 
 ## Database Config
@@ -110,6 +111,7 @@ Important controllers:
 - `batchController.js`
 - `inventoryController.js`
 - `activityController.js`
+- `volunteerController.js`
 
 ## Repositories
 
@@ -140,5 +142,16 @@ Important files:
 - `migrate_v3.sql`: activity log table
 - `migrate_v4.sql`: multiple barcodes per item
 - `migrate_v5_reset_inventory_categories.sql`: inventory reset and current category taxonomy
+
+Additional manual migrations live in:
+
+```text
+migrations/
+```
+
+Current files:
+
+- `001_add_volunteer_tracking.sql`: adds `volunteer_name` to `activity_log`
+- `002_add_volunteer_uid_to_activity_log.sql`: adds `volunteer_uid` and `batch_id` to `activity_log`
 
 Migrations are currently manual SQL files. Keep them ordered, explicit, and safe to run in the intended environment.

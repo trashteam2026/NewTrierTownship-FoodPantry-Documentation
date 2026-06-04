@@ -16,6 +16,8 @@ The goal of the Inventory Management system is to provide a clean way to update 
 - **Barcode Scanning**: Gives volunteers a way to update the database with new stock directly.
 - **Activity Log**: Allows administrators to generate comprehensive overviews of past Food Pantry activity.
 - **Checkout Interface**: Helps administrators keep track of what is being removed in one client interaction.
+- **Volunteer Sessions**: Lets administrators generate a temporary code for volunteer check-in access.
+- **Internal Barcode Generation**: Lets administrators create pantry-owned barcodes for items that do not already have one.
 
 This is on top of our foundational features:
 
