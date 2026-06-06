@@ -31,6 +31,11 @@ const sidebars: SidebarsConfig = {
           id: "frontend/features",
           label: "Features",
         },
+        {
+          type: "doc",
+          id: "frontend/deployment",
+          label: "Deployment",
+        },
       ],
     },
     {
@@ -44,10 +49,25 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: "doc",
-          id: "backend/features",
-          label: "Features",
+          id: "backend/architecture",
+          label: "Architecture & Core Logic",
+        },
+        {
+          type: "doc",
+          id: "backend/deployment",
+          label: "Deployment",
         },
       ],
+    },
+    {
+      type: "doc",
+      id: "database-schema",
+      label: "Database Schema",
+    },
+    {
+      type: "doc",
+      id: "gotchas",
+      label: "Known Behaviors",
     },
   ],
 };
